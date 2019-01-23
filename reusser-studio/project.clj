@@ -1,4 +1,4 @@
-(defproject personal-page "0.1.0-SNAPSHOT"
+(defproject reusser-studio "0.1.0-SNAPSHOT"
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.9.946"]
                  [reagent "0.7.0"]]
@@ -25,8 +25,8 @@
   {:builds
    [{:id           "dev"
      :source-paths ["src/cljs"]
-     :figwheel     {:on-jsload "personal-page.core/reload"}
-     :compiler     {:main                 personal-page.core
+     :figwheel     {:on-jsload "reusser-studio.core/reload"}
+     :compiler     {:main                 reusser-studio.core
                     :optimizations        :none
                     :output-to            "resources/public/js/app.js"
                     :output-dir           "resources/public/js/dev"
@@ -35,7 +35,7 @@
 
     {:id           "min"
      :source-paths ["src/cljs"]
-     :compiler     {:main            personal-page.core
+     :compiler     {:main            reusser-studio.core
                     :optimizations   :advanced
                     :output-to       "resources/public/js/app.js"
                     :output-dir      "resources/public/js/min"

@@ -1,4 +1,4 @@
-# personal-page
+# reusser-studio
 
 A [reagent](https://github.com/reagent-project/reagent) application designed to ... well, that part is up to you.
 
