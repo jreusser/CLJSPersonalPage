@@ -2,32 +2,44 @@
   (:require
    [reagent.core :as reagent]))
 
+(defn header-banner []
+  [:div.header.row.justify-content-sm-center.text-center
+   [:div.col-sm-12 "McFarland-Reusser Wedding"]])
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Vars
+(defn navigate-button [text callback]
+  [:input {:type "button" :value text :on-click (callback)}])
+
+(defn go-rsvp []
+  #(js/console.log "give us food!"))
+
+(defn content-home []
+  [:div.col-sm-12.text-center "Welcome to the McFarland Reusser Wedding Landing Page"])
 
 (defonce app-state
-  (reagent/atom {}))
+  (reagent/atom {:to-display content-home}))
 
-(defn navigate-button [text location]
-  [:input {:type "button" :value text :on-click #(js/console.log location)}])
+(defn go-home []
+  (swap! app-state content-home))
 
-(defn header-banner []
-  [:h1 {:class "header"} "Reusser Studios"])
+(defn content-guest-list []
+  [:div.col-sm-12.text-center "Please sign the Guest List :D"])
+
+(defn go-guest-list []
+  (swap! app-state content-guest-list))
 
 (defn header-buttons []
-  (let [home {:text "Home" :location "home"}]
-    (navigate-button (home :text) (home :location))))
-
-(defn header []
-  [:div (header-banner) (header-buttons)])
+  (let [buttons [["Home" go-home]
+                 ["Sign the Guest List" go-guest-list]
+                 ["RSVP"  go-rsvp]]]
+    (map (fn [[text callback]] [:div.btn.col-sm-4
+                                {:key text}
+                                (navigate-button text callback)]) buttons)))
 
 (defn page [ratom]
-
-
-  [:div (header-banner)
-   (header-buttons)])
-
+  [:div.container-fluid
+   [:div.row (header-banner)]
+   [:div.row (header-buttons)]
+   [:div.row ((:to-display @app-state))]])
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Initialize App
