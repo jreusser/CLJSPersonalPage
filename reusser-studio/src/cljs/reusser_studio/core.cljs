@@ -19,13 +19,13 @@
   (reagent/atom {:to-display content-home}))
 
 (defn go-home []
-  (swap! app-state content-home))
+  #(swap! app-state assoc :to-display content-home))
 
 (defn content-guest-list []
   [:div.col-sm-12.text-center "Please sign the Guest List :D"])
 
 (defn go-guest-list []
-  (swap! app-state content-guest-list))
+  #(swap! app-state assoc :to-display content-guest-list))
 
 (defn header-buttons []
   (let [buttons [["Home" go-home]
