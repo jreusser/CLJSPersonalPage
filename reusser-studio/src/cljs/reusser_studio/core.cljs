@@ -7,7 +7,7 @@
    [:div.col-sm-12 "McFarland-Reusser Wedding"]])
 
 (defn navigate-button [text callback]
-  [:input {:type "button" :value text :on-click (callback)}])
+  [:button.btn-primary.btn-lg.btn-block {:on-click (callback)} text])
 
 (defn go-rsvp []
   #(js/console.log "give us food!"))
