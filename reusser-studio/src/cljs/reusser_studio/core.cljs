@@ -7,10 +7,10 @@
    [:div.col-sm-12 "McFarland-Reusser Wedding"]])
 
 (defn navigate-button [text callback]
-  [:button.btn-primary.btn-lg.btn-block {:on-click (callback)} text])
+  [:button.btn-primary.btn-lg.btn-block {:on-click callback} text])
 
 (defn go-rsvp []
-  #(js/console.log "give us food!"))
+  (js/console.log "give us food!"))
 
 (defn content-home []
   [:div.col-sm-12.text-center "Welcome to the McFarland Reusser Wedding Landing Page"])
@@ -19,13 +19,13 @@
   (reagent/atom {:to-display content-home}))
 
 (defn go-home []
-  #(swap! app-state assoc :to-display content-home))
+  (swap! app-state assoc :to-display content-home))
 
 (defn content-guest-list []
   [:div.col-sm-12.text-center "Please sign the Guest List :D"])
 
 (defn go-guest-list []
-  #(swap! app-state assoc :to-display content-guest-list))
+  (swap! app-state assoc :to-display content-guest-list))
 
 (defn header-buttons []
   (let [buttons [["Home" go-home]
