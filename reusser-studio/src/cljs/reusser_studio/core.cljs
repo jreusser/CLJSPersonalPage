@@ -9,8 +9,12 @@
 (defn navigate-button [text callback]
   [:button.btn-primary.btn-lg.btn-block {:on-click callback} text])
 
-(defn go-rsvp []
-  (js/console.log "give us food!"))
+(defn content-registry []
+  [:a {:href "https://www.google.com/" :target "_blank"} "Gooooooogle"]
+  )
+
+(defn go-registry []
+  (swap! app-state assoc :to-display content-registry))
 
 (defn content-home []
   [:div.col-sm-12.text-center "Welcome to the McFarland Reusser Wedding Landing Page"])
@@ -30,7 +34,7 @@
 (defn header-buttons []
   (let [buttons [["Home" go-home]
                  ["Sign the Guest List" go-guest-list]
-                 ["RSVP"  go-rsvp]]]
+                 ["Registry"  go-registry]]]
     (map (fn [[text callback]] [:div.btn.col-sm-4
                                 {:key text}
                                 (navigate-button text callback)]) buttons)))
