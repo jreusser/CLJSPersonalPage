@@ -1,7 +1,7 @@
 (ns reusser-studio.core
   (:require
    [reagent.core :as reagent]
-   [reusser-studio.constants :refer [target-image]]))
+   [reusser-studio.constants :refer [target-image amazon-image]]))
 
 (defn header-banner []
   [:div.header.row.justify-content-sm-center.text-center
@@ -21,12 +21,17 @@
 
 (defn content-registry []
   (let [registries
-        [["https://www.target.com/gift-registry/giftgiver?registryId=4f2e663546804f79b47fdb7b55d152e0&type=GENERIC&occasionType=HOUSEWARMING" target-image]]]
+        [["Target"
+          "https://www.target.com/gift-registry/giftgiver?registryId=4f2e663546804f79b47fdb7b55d152e0&type=GENERIC&occasionType=HOUSEWARMING" target-image]
+         ["Amazon"
+          "http://amazon.com/wedding/share/mcfarland-reusser-registry"
+          amazon-image]]]
 
-    (map (fn [[link image]] [:a.col-sm-12.text-center
-                             {:href link
-                              :target "_blank"}
-                             [:img {:src image}]]) registries)))
+    (map (fn [[name link image]] [:a.col-sm-12.text-center
+                                  {:key name
+                                   :href link
+                                   :target "_blank"}
+                                  [:div [:div name] [:img {:src image}]]]) registries)))
 
 (defn go-registry []
   (swap! app-state assoc :to-display content-registry))
