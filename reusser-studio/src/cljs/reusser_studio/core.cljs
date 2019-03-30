@@ -13,7 +13,9 @@
   (js/console.log "give us food!"))
 
 (defn content-home []
-  [:div.col-sm-12.text-center "Welcome to the McFarland Reusser Wedding Landing Page"])
+  [:div.col-sm-12.text-center
+   [:div "Welcome to the McFarland Reusser Wedding Landing Page"]
+   [:img.rounded.image-fluid {:src "images/hogwarts.jpg"}]])
 
 (defonce app-state
   (reagent/atom {:to-display content-home}))
@@ -31,8 +33,10 @@
   (let [buttons [["Home" go-home]
                  ["Sign the Guest List" go-guest-list]
                  ["RSVP"  go-rsvp]]]
-    (map (fn [[text callback]] [:div.btn.col-sm-4
-                                {:key text}
+    (map (fn [[text callback]] [:div
+
+                                {:key text
+                                 :class (str "btn.col-sm-12")}
                                 (navigate-button text callback)]) buttons)))
 
 (defn page [ratom]
