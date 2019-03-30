@@ -4,7 +4,7 @@
    [reusser-studio.navigation :refer [go-home go-guest-list go-registry go-request-song go-schedule]]))
 
 (defn empty-page []
-  [:div "content!"])
+  [:div.row.text-center "THERE'S A PROBLEM!"])
 
 (defonce app-state
   (reagent/atom {:to-display #(empty-page)}))
@@ -38,6 +38,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Initialize App
 
+(defn prod-setup [application-state]
+  ((go-home application-state)))
+
 (defn dev-setup []
   (when ^boolean js/goog.DEBUG
     (enable-console-print!)
@@ -49,4 +52,5 @@
 
 (defn ^:export main []
   (dev-setup)
-  (reload))
+  (reload)
+  (prod-setup app-state))
