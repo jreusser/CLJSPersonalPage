@@ -1,7 +1,13 @@
 (ns reusser-studio.core
   (:require
    [reagent.core :as reagent]
-   [reusser-studio.constants :refer [target-image amazon-image]]))
+   [reusser-studio.navigation :refer [go-home go-guest-list go-registry go-request-song go-schedule]]))
+
+(defn empty-page []
+  [:div "content!"])
+
+(defonce app-state
+  (reagent/atom {:to-display #(empty-page)}))
 
 (defn header-banner []
   [:div.header.row.justify-content-sm-center.text-center
@@ -10,55 +16,24 @@
 (defn navigate-button [text callback]
   [:button.btn-primary.btn-lg.btn-block {:on-click callback} text])
 
-(defn content-home []
-  [:div.col-sm-12.text-center
-   [:div "Welcome to the McFarland Reusser Wedding Landing Page"]
-   [:img.rounded.image-fluid {:src "images/hogwarts.jpg"}]])
 
-(defonce app-state
-  (reagent/atom {:to-display content-home}))
-
-
-(defn content-registry []
-  (let [registries
-        [["Target"
-          "https://www.target.com/gift-registry/giftgiver?registryId=4f2e663546804f79b47fdb7b55d152e0&type=GENERIC&occasionType=HOUSEWARMING" target-image]
-         ["Amazon"
-          "http://amazon.com/wedding/share/mcfarland-reusser-registry"
-          amazon-image]]]
-
-    (map (fn [[name link image]] [:a.col-sm-12.text-center
-                                  {:key name
-                                   :href link
-                                   :target "_blank"}
-                                  [:div [:div name] [:img {:src image}]]]) registries)))
-
-(defn go-registry []
-  (swap! app-state assoc :to-display content-registry))
-
-(defn go-home []
-  (swap! app-state assoc :to-display content-home))
-
-(defn content-guest-list []
-  [:div.col-sm-12.text-center "Please sign the Guest List :D"])
-
-(defn go-guest-list []
-  (swap! app-state assoc :to-display content-guest-list))
-
-(defn header-buttons []
-  (let [buttons [["Home" go-home]
-                 ["Sign the Guest List" go-guest-list]
-                 ["Registry"  go-registry]]]
+(defn header-buttons [application-state]
+  (let [buttons [["Home" (go-home application-state)]
+                 ["Sign the Guest List" (go-guest-list application-state)]
+                 ["Registry"  (go-registry application-state)]
+                 ["Request a Song" (go-request-song application-state)]
+                 ["Schedule of Events" (go-schedule application-state)]]]
     (map (fn [[text callback]] [:div.btn.col-sm-4
                                 {:key text}
-
                                 (navigate-button text callback)]) buttons)))
 
 (defn page [ratom]
-  [:div.container-fluid
-   [:div.row (header-banner)]
-   [:div.row (header-buttons)]
-   [:div.row ((:to-display @app-state))]])
+  (let [to-execute (:to-display @app-state)
+        actual-content (to-execute)]
+    [:div.container-fluid
+     [:div.row (header-banner)]
+     [:div.row (header-buttons app-state)]
+     [:div.row actual-content]]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Initialize App
