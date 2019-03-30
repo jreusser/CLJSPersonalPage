@@ -1,6 +1,7 @@
 (ns reusser-studio.core
   (:require
-   [reagent.core :as reagent]))
+   [reagent.core :as reagent]
+   [reusser-studio.constants :refer [target-image]]))
 
 (defn header-banner []
   [:div.header.row.justify-content-sm-center.text-center
@@ -9,13 +10,6 @@
 (defn navigate-button [text callback]
   [:button.btn-primary.btn-lg.btn-block {:on-click callback} text])
 
-(defn content-registry []
-  [:a {:href "https://www.google.com/" :target "_blank"} "Gooooooogle"]
-  )
-
-(defn go-registry []
-  (swap! app-state assoc :to-display content-registry))
-
 (defn content-home []
   [:div.col-sm-12.text-center
    [:div "Welcome to the McFarland Reusser Wedding Landing Page"]
@@ -23,6 +17,19 @@
 
 (defonce app-state
   (reagent/atom {:to-display content-home}))
+
+
+(defn content-registry []
+  (let [registries
+        [["https://www.target.com/gift-registry/giftgiver?registryId=4f2e663546804f79b47fdb7b55d152e0&type=GENERIC&occasionType=HOUSEWARMING" target-image]]]
+
+    (map (fn [[link image]] [:a.col-sm-12.text-center
+                             {:href link
+                              :target "_blank"}
+                             [:img {:src image}]]) registries)))
+
+(defn go-registry []
+  (swap! app-state assoc :to-display content-registry))
 
 (defn go-home []
   (swap! app-state assoc :to-display content-home))
