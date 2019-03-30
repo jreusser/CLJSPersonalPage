@@ -17,7 +17,9 @@
   (swap! app-state assoc :to-display content-registry))
 
 (defn content-home []
-  [:div.col-sm-12.text-center "Welcome to the McFarland Reusser Wedding Landing Page"])
+  [:div.col-sm-12.text-center
+   [:div "Welcome to the McFarland Reusser Wedding Landing Page"]
+   [:img.rounded.image-fluid {:src "images/hogwarts.jpg"}]])
 
 (defonce app-state
   (reagent/atom {:to-display content-home}))
@@ -37,6 +39,7 @@
                  ["Registry"  go-registry]]]
     (map (fn [[text callback]] [:div.btn.col-sm-4
                                 {:key text}
+
                                 (navigate-button text callback)]) buttons)))
 
 (defn page [ratom]
