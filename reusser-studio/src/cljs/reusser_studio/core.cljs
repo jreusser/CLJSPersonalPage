@@ -1,7 +1,8 @@
 (ns reusser-studio.core
   (:require
    [reagent.core :as reagent]
-   [reusser-studio.navigation :refer [go-home go-guest-list go-registry go-request-song go-schedule]]))
+   [reusser-studio.navigation :refer [go-home go-registry go-schedule go-wedding-party]]
+   [cljs-time.core :refer [in-days interval date-time now]]))
 
 (defn empty-page []
   [:div.row.text-center "THERE'S A PROBLEM!"])
@@ -9,20 +10,23 @@
 (defonce app-state
   (reagent/atom {:to-display #(empty-page)}))
 
+(defn days-until []
+  (in-days (interval (now) (date-time 2020 10 10))))
+
 (defn header-banner []
-  [:div.header.row.justify-content-sm-center.text-center
-   [:div.col-sm-12 "McFarland-Reusser Wedding"]])
+  [:div.header.text-center.h2.justify-content-center.flex-fill
+   [:div.col-sm-12.text-gold "McFarland-Reusser Wedding | 10/10/2020"]
+   [:div "Only " [:span.text-gold (days-until)] " days until the big day!"]])
 
 (defn navigate-button [text callback]
-  [:button.btn-primary.btn-lg.btn-block {:on-click callback} text])
+  [:button.btn-lg.btn-block.text-gold.border-gold.background-orange {:on-click callback} text])
 
 
 (defn header-buttons [application-state]
   (let [buttons [["Home" (go-home application-state)]
-                 ["Sign the Guest List" (go-guest-list application-state)]
                  ["Registry"  (go-registry application-state)]
-                 ["Request a Song" (go-request-song application-state)]
-                 ["Schedule of Events" (go-schedule application-state)]]]
+                 ["Schedule of Events" (go-schedule application-state)]
+                 ["Wedding Party" (go-wedding-party application-state)]]]
     (map (fn [[text callback]] [:div.btn.col-sm-4
                                 {:key text}
                                 (navigate-button text callback)]) buttons)))
@@ -31,8 +35,8 @@
   (let [to-execute (:to-display @app-state)
         actual-content (to-execute)]
     [:div.container-fluid
-     [:div.row (header-banner)]
-     [:div.row (header-buttons app-state)]
+     [:div.row.background-ivy (header-banner)]
+     [:div.row.background-ivy (header-buttons app-state)]
      [:div.row actual-content]]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
