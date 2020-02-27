@@ -1,56 +1,14 @@
-
-/*
-Disable all select blue links
-*/
-select:active, select:hover {
-  outline: none
-}
-
 html, body {
   min-height:750px;
   height: 100%;
   width: 100%;
-  font-size: 10px;
 }
 
-.fill-height-or-more {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-  -moz-box-orient: vertical;
-  -moz-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
-} 
-
-.fill-height-or-more > div {
-  -webkit-box-flex: 1;
-  -webkit-flex: 1;
-  -moz-box-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -moz-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-  -moz-box-orient: vertical;
-  -moz-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+li {
+  font-size: 4rem;
+}
+button{
+  font-size: 4rem;
 }
 
 .header {
@@ -64,24 +22,34 @@ html, body {
 }
 
 .background-rust{
-  background-color: #D1221D;
+  background-color: #B33B2D;
+}
+
+.text-rust{
+  color: #B33B2D;
+}
+
+.border-rust{
+  border-color: #B33B2D !important;
+  border-width: 3px;
+  border-style: solid;
 }
 
 .background-ivy{
-  background-color: #5A9B36;
+  background-color: #0C584E;
 }
 
 .text-ivy{
-color: #5A9B36;
-
+  color: #0C584E;
 }
 
 .background-gold{
   background-color: #FFBB19;
 }
 
-.border-gold{
-  border: #FFBB19;
+.border-ivy{
+  border-color: #0C584E;
+  
 }
 
 .text-gold{
@@ -100,7 +68,10 @@ color: #5A9B36;
   /* these are the flex items */
   flex: 1;
 }
+html, body {
+  background-color: #f5e9cd;
+}
 
-a:hover {
-  text-decoration: none;
+.background-white{
+  background-color: #FFF;
 }

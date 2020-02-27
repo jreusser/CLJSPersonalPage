@@ -11,25 +11,23 @@
   (reagent/atom {:to-display #(empty-page)}))
 
 (defn days-until []
-  (in-days (interval (now) (date-time 2020 10 10))))
+  (+ (in-days (interval (now)  (date-time 2020 10 10))) 2))
 
 (defn header-banner []
-  [:div.header.text-center.h2.justify-content-center.flex-fill
+  [:div.header.text-center.h1.justify-content-center.flex-fill
    [:div.col-sm-12.text-gold "McFarland-Reusser Wedding | 10/10/2020"]
    [:div "Only " [:span.text-gold (days-until)] " days until the big day!"]])
-
-(defn navigate-button [text callback]
-  [:button.btn-lg.btn-block.text-gold.border-gold.background-orange {:on-click callback} text])
-
 
 (defn header-buttons [application-state]
   (let [buttons [["Home" (go-home application-state)]
                  ["Registry"  (go-registry application-state)]
                  ["Schedule of Events" (go-schedule application-state)]
                  ["Wedding Party" (go-wedding-party application-state)]]]
-    (map (fn [[text callback]] [:div.btn.col-sm-4
-                                {:key text}
-                                (navigate-button text callback)]) buttons)))
+    (map (fn [[text callback]]
+           [:button.btn.col-lg-3.col-sm-6.border-gold.background-rust
+            {:key text :on-click callback}
+            [:h1.text-gold text] callback])
+         buttons)))
 
 (defn page [ratom]
   (let [to-execute (:to-display @app-state)
